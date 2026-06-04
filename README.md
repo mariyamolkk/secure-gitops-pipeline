@@ -44,7 +44,7 @@ Vault manages application secrets securely
 | GitHub Actions pipeline | Complete |
 | Trivy vulnerability scanning | Complete — vulnerable image blocked, remediated, and rescanned successfully|
 | Kubernetes deployment |  Complete — application running with two healthy replicas |
-| ArgoCD synchronization | Planned |
+| ArgoCD synchronization | Complete — GitHub manifests synchronized and application healthy |
 | Vault integration | Planned |
 
 ## Evidence
@@ -91,3 +91,15 @@ kubectl get deployments,pods,services -n secure-gitops -o wide
 
 ![Application running through Kubernetes](screenshots/kubernetes-app-running.png)
 
+### 4. GitOps Deployment with ArgoCD
+
+ArgoCD was installed in the local Kubernetes cluster and configured to monitor the Kubernetes manifests stored in this GitHub repository. The ArgoCD `Application` resource tracks the `kubernetes/manifests` directory on the `main` branch and automatically synchronizes the declared application state into the `secure-gitops` namespace.
+
+The application reached a `Synced` and `Healthy` state, confirming that the deployed Kubernetes resources match the desired configuration stored in GitHub.
+
+```bash
+kubectl apply -f argocd/application.yml
+kubectl get applications -n argocd
+```
+
+![ArgoCD application synchronized and healthy](screenshots/argocd-synced-healthy.png)

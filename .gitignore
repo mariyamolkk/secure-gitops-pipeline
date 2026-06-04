@@ -1,0 +1,21 @@
+# Secrets and credentials
+.env
+*.env
+*.pem
+*.key
+credentials/
+secrets/
+
+# Vault runtime data
+vault/data/
+vault/logs/
+
+# Local development settings
+.vscode/
+*.log
+tmp/
+temp/
+
+# Operating system files
+.DS_Store
+Thumbs.db

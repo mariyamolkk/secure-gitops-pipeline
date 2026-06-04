@@ -1,0 +1,9 @@
+.git
+.github
+screenshots
+README.md
+kubernetes
+argocd
+vault
+*.log
+.env

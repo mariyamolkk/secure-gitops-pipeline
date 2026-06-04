@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure GitOps Pipeline</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #0f172a;
+            color: #e2e8f0;
+        }
+
+        .card {
+            width: min(820px, 92%);
+            padding: 52px;
+            border-radius: 20px;
+            background: #111827;
+            border: 1px solid #334155;
+            box-shadow: 0 24px 70px rgba(0, 0, 0, 0.4);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 8px 15px;
+            border-radius: 999px;
+            color: #5eead4;
+            background: #052e2b;
+            border: 1px solid #14b8a6;
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: 0.05em;
+        }
+
+        h1 {
+            margin: 24px 0 16px;
+            font-size: clamp(36px, 6vw, 52px);
+            line-height: 1.1;
+            color: #f8fafc;
+        }
+
+        .description {
+            max-width: 650px;
+            margin: 0;
+            font-size: 18px;
+            line-height: 1.7;
+            color: #cbd5e1;
+        }
+
+        .pipeline {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 36px;
+        }
+
+        .pipeline span {
+            padding: 11px 16px;
+            border-radius: 9px;
+            background: #1e293b;
+            border: 1px solid #334155;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .status {
+            margin-top: 38px;
+            padding-top: 22px;
+            border-top: 1px solid #334155;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        .healthy {
+            color: #4ade80;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <main class="card">
+        <div class="badge">SECURE DEPLOYMENT PIPELINE</div>
+
+        <h1>Secure GitOps Pipeline</h1>
+
+        <p class="description">
+            A DevOps portfolio project demonstrating automated container
+            delivery, vulnerability scanning, GitOps deployment, and secure
+            secrets management.
+        </p>
+
+        <section class="pipeline" aria-label="Technologies used">
+            <span>Docker</span>
+            <span>GitHub Actions</span>
+            <span>Trivy</span>
+            <span>Kubernetes</span>
+            <span>ArgoCD</span>
+            <span>Vault</span>
+        </section>
+
+        <section class="status">
+            <span>Environment: Local Kubernetes</span>
+            <span class="healthy">● Application Healthy</span>
+        </section>
+    </main>
+</body>
+</html>

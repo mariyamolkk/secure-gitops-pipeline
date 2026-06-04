@@ -43,7 +43,7 @@ Vault manages application secrets securely
 | Containerized web application | complete|
 | GitHub Actions pipeline | Complete |
 | Trivy vulnerability scanning | Complete — vulnerable image blocked, remediated, and rescanned successfully|
-| Kubernetes deployment | Planned |
+| Kubernetes deployment |  Complete — application running with two healthy replicas |
 | ArgoCD synchronization | Planned |
 | Vault integration | Planned |
 
@@ -69,3 +69,25 @@ A GitHub Actions workflow automatically builds and scans the container image usi
 The Docker image was remediated by upgrading available Alpine packages during the image build. A subsequent workflow run verified that the corrected image passed the configured `HIGH` and `CRITICAL` vulnerability gate.
 
 ![Trivy scan passed after remediation](screenshots/trivy-workflow-passed.png)
+
+### 3. Local Kubernetes Deployment
+
+The vulnerability-remediated container image was deployed to a local Kubernetes cluster created using `kind`. The deployment runs two replicas and exposes the application through a Kubernetes `NodePort` Service. Readiness and liveness probes were configured to verify application health.
+
+```bash
+kind create cluster --config kubernetes/kind-config.yml
+kind load docker-image secure-gitops-app:v2 --name secure-gitops
+kubectl apply -f kubernetes/namespace.yml
+kubectl apply -f kubernetes/deployment.yml
+kubectl apply -f kubernetes/service.yml
+kubectl get deployments,pods,services -n secure-gitops -o wide
+```
+
+#### Kubernetes Resources Running Locally
+
+![Kubernetes pods and service running](screenshots/kubernetes-pods-running.png)
+
+#### Application Served Through Kubernetes
+
+![Application running through Kubernetes](screenshots/kubernetes-app-running.png)
+

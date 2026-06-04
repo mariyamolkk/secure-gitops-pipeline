@@ -40,9 +40,9 @@ Vault manages application secrets securely
 | Milestone | Status |
 |---|---|
 | Repository structure | Complete |
-| Containerized web application | complete |
-| GitHub Actions pipeline | Planned |
-| Trivy vulnerability scanning | Planned |
+| Containerized web application | complete|
+| GitHub Actions pipeline | Complete |
+| Trivy vulnerability scanning | Complete — vulnerable image blocked, remediated, and rescanned successfully|
 | Kubernetes deployment | Planned |
 | ArgoCD synchronization | Planned |
 | Vault integration | Planned |
@@ -59,3 +59,13 @@ docker run -d --name secure-gitops-web -p 8080:80 secure-gitops-app:v1
 ```
 
 ![Containerized application running locally](screenshots/docker-app-running.png)
+
+### 2. Automated Vulnerability Detection and Remediation
+
+A GitHub Actions workflow automatically builds and scans the container image using Trivy. During the first scan, the security gate detected a fixable `HIGH` severity vulnerability in the Alpine `libxml2` package and blocked the image from progressing.
+
+![Trivy blocked vulnerable image](screenshots/trivy-vulnerability-blocked.png)
+
+The Docker image was remediated by upgrading available Alpine packages during the image build. A subsequent workflow run verified that the corrected image passed the configured `HIGH` and `CRITICAL` vulnerability gate.
+
+![Trivy scan passed after remediation](screenshots/trivy-workflow-passed.png)

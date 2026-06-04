@@ -45,7 +45,7 @@ Vault manages application secrets securely
 | Trivy vulnerability scanning | Complete — vulnerable image blocked, remediated, and rescanned successfully|
 | Kubernetes deployment |  Complete — application running with two healthy replicas |
 | ArgoCD synchronization | Complete — GitHub manifests synchronized and application healthy |
-| Vault integration | Planned |
+| Vault integration |Complete — secret injected into authorized Kubernetes pods |
 
 ## Evidence
 
@@ -116,3 +116,24 @@ spec:
 The running Kubernetes deployment subsequently reported three available application pods.
 
 ![ArgoCD applied replica scale change from GitHub](screenshots/argocd-gitops-scale-sync.png)
+
+### 5. Secrets Management with HashiCorp Vault
+
+HashiCorp Vault was deployed in the local Kubernetes cluster for demonstration purposes using development mode. A non-sensitive demonstration value was stored in Vault and made accessible only through a restricted Vault policy and a Kubernetes-authenticated application service account.
+
+The application deployment was configured with Vault Agent Injector annotations. After ArgoCD synchronized the updated manifests, each application pod included an injected Vault Agent container and successfully rendered the permitted configuration into `/vault/secrets/app-config`.
+
+```text
+Secret path: secret/data/secure-gitops
+Policy: secure-gitops-policy
+Kubernetes service account: secure-gitops-vault
+Vault role: secure-gitops-role
+Injected file: /vault/secrets/app-config
+Demonstration value: integration_status=managed-by-vault
+```
+
+The terminal evidence below confirms that all three application pods were running with Vault injection enabled and that the authorized configuration value was successfully retrieved inside the application pod.
+
+![Vault secret injection verified in Kubernetes pod](screenshots/vault-secret-injection-verified.png)
+
+> Note: Vault development mode was used only for local portfolio demonstration and is not appropriate for production deployment.

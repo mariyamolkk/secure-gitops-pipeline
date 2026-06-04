@@ -103,3 +103,16 @@ kubectl get applications -n argocd
 ```
 
 ![ArgoCD application synchronized and healthy](screenshots/argocd-synced-healthy.png)
+
+#### Automated GitOps Synchronization Demonstration
+
+To validate automated GitOps behavior, the desired replica count in `kubernetes/manifests/deployment.yml` was changed from two to three and pushed to GitHub. ArgoCD detected the change and automatically synchronized the deployment without requiring a manual `kubectl apply` command.
+
+```yaml
+spec:
+  replicas: 3
+```
+
+The running Kubernetes deployment subsequently reported three available application pods.
+
+![ArgoCD applied replica scale change from GitHub](screenshots/argocd-gitops-scale-sync.png)

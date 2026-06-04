@@ -1,4 +1,4 @@
-FROM nginx:1.27-alpine
+FROM nginx:stable-alpine
 
 LABEL project="secure-gitops-pipeline"
 LABEL description="Containerized application for secure GitOps portfolio project"

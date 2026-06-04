@@ -6,6 +6,13 @@ A DevOps portfolio project demonstrating secure container deployment using Docke
 
 This project demonstrates a secure software delivery process where application changes are containerized, scanned for vulnerabilities, and deployed through a GitOps-managed Kubernetes workflow.
 
+## Project Outcome
+
+This project demonstrates a secure GitOps-based container delivery workflow implemented entirely in a local Kubernetes environment. A web application was packaged using Docker, validated through a GitHub Actions pipeline, and scanned using Trivy. The security gate successfully detected and blocked a fixable high-severity container vulnerability, after which the image was remediated and verified through a passing scan.
+
+The remediated image was deployed to a local Kubernetes cluster using `kind`, with health probes and replicated application pods. ArgoCD was configured to synchronize Kubernetes manifests from GitHub and automatically applied a replica scaling change through GitOps. HashiCorp Vault was then integrated using Kubernetes authentication and Vault Agent Injector to provide a demonstration configuration value to authorized application pods without storing the value in deployment manifests.
+
+
 ## Planned Architecture
 
 ```text

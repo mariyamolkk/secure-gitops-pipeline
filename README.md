@@ -75,11 +75,11 @@ The Docker image was remediated by upgrading available Alpine packages during th
 The vulnerability-remediated container image was deployed to a local Kubernetes cluster created using `kind`. The deployment runs two replicas and exposes the application through a Kubernetes `NodePort` Service. Readiness and liveness probes were configured to verify application health.
 
 ```bash
-kind create cluster --config kubernetes/kind-config.yml
+kind create cluster --config kubernetes/cluster/kind-config.yml
 kind load docker-image secure-gitops-app:v2 --name secure-gitops
-kubectl apply -f kubernetes/namespace.yml
-kubectl apply -f kubernetes/deployment.yml
-kubectl apply -f kubernetes/service.yml
+kubectl apply -f kubernetes/manifests/namespace.yml
+kubectl apply -f kubernetes/manifests/deployment.yml
+kubectl apply -f kubernetes/manifests/service.yml
 kubectl get deployments,pods,services -n secure-gitops -o wide
 ```
 

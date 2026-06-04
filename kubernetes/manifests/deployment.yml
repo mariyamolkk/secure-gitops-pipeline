@@ -14,7 +14,17 @@ spec:
     metadata:
       labels:
         app: secure-gitops-app
+      annotations:
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/role: "secure-gitops-role"
+        vault.hashicorp.com/audience: "vault"
+        vault.hashicorp.com/agent-inject-secret-app-config: "secret/data/secure-gitops"
+        vault.hashicorp.com/agent-inject-template-app-config: |
+          {{- with secret "secret/data/secure-gitops" -}}
+          integration_status={{ .Data.data.integration_status }}
+          {{- end }}
     spec:
+      serviceAccountName: secure-gitops-vault
       containers:
         - name: secure-gitops-app
           image: secure-gitops-app:v2
